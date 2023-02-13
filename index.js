@@ -52,7 +52,6 @@ client.on(Events.InteractionCreate, async (interaction) => {
 client.login(token);
 
 // Discord player
-//const player = new Player(client);
 global.player = new Player(client, { ytdlOptions: { quality: 'highestaudio' } });
 
 
@@ -66,23 +65,23 @@ player.on("connectionError", (queue, error) => {
 
 
 
-// Listeners
+// Event listeners
 player.on("trackStart", (queue, track) => {
-    queue.metadata.send(`🎶 | Started playing: **${track.title}** in **${queue.connection.channel.name}**!`);
+    queue.metadata.channel.send(`🎶 | Started playing: **${track.title}** in **${queue.connection.channel.name}**!`);
 });
 
 player.on("trackAdd", (queue, track) => {
-    queue.metadata.send(`🎶 | Track **${track.title}** queued!`);
+    queue.metadata.channel.send(`🎶 | Added to queue: **${track.title}**!`);
 });
 
 player.on("botDisconnect", (queue) => {
-    queue.metadata.send("❌ | I was manually disconnected from the voice channel, clearing queue!");
+    queue.metadata.channel.send("❗ | Disconnected from the voice channel. Queue cleared!");
 });
 
 player.on("channelEmpty", (queue) => {
-    queue.metadata.send("❌ | Nobody is in the voice channel, leaving...");
+    queue.metadata.channel.send("❗ | Nobody is in the voice channel. Leaving...");
 });
 
 player.on("queueEnd", (queue) => {
-    queue.metadata.send("✅ | Queue finished!");
+    queue.metadata.channel.send("🍵 | Queue finished!");
 });
