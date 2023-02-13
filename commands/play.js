@@ -5,10 +5,10 @@ const playdl = require("play-dl");
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('play')
-		.setDescription('Plays a song from a YouTube link')
+		.setDescription('Plays audio from a YouTube video')
         .addStringOption(option =>
             option.setName('youtube')
-                .setDescription('Use YouTube link')
+                .setDescription('Enter YouTube search input')
                 .setRequired(true)),
 	async execute(interaction) {
 		await interaction.deferReply();
@@ -38,14 +38,14 @@ module.exports = {
             }
         } catch {
             queue.destroy();
-            return void interaction.followUp({ content: "❗ | Could not join your voice channel!" });
+            return void interaction.followUp({ content: "❗  Could not join your voice channel!" });
         }
 
         if (!searchResult.tracks) {
-            return await interaction.followUp({ content: `❗ | Track **${query}** not found!` });
+            return await interaction.followUp({ content: `❗  Track **${query}** not found!` });
         }
 
-        await interaction.followUp({ content: `⏱ | Loading ${searchResult.playlist ? "playlist" : "track"}...` });
+        await interaction.followUp({ content: `⏱  Loading ${searchResult.playlist ? "playlist" : "track"}...` });
 
         searchResult.playlist ? queue.addTracks(searchResult.tracks) : queue.addTrack(searchResult.tracks[0]);
         if (!queue.playing) {

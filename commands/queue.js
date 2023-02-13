@@ -19,15 +19,15 @@ module.exports = {
         const methods = ['', '🔁', '🔂'];
 
         const songs = queue.tracks.length;
-        const nextSongs = songs > 5 ? `Additional Songs: **${songs - 5}**` : `Number of Songs: **${songs}**`;
+        const nextSongs = songs > 5 ? `Additional Tracks: **${songs - 5}**` : `Tracks: **${songs}**`;
 
-        const tracks = queue.tracks.map((track, i) => `**${i + 1}** - ${track.title} | ${track.author} (requested by : ${track.requestedBy.username})`)
+        const tracks = queue.tracks.map((track, i) => `**${i + 1}**: ${track.title} • ${track.author} (requested by: **${track.requestedBy.username}**)`)
 
         const embed = new EmbedBuilder()
         .setColor('#000000')
         .setThumbnail(interaction.guild.iconURL({ size: 2048, dynamic: true }))
-        .setAuthor({name: `Queue | ${interaction.guild.name} ${methods[queue.repeatMode]}`, iconURL: client.user.displayAvatarURL({ size: 1024, dynamic: true })})
-        .setDescription(`Current ${queue.current.title}\n\n${tracks.slice(0, 5).join('\n')}\n\n${nextSongs}`)
+        .setAuthor({name: `Queue - ${interaction.guild.name} ${methods[queue.repeatMode]}`, iconURL: client.user.displayAvatarURL({ size: 1024, dynamic: true })})
+        .setDescription(`Current: ${queue.current.title}\n\n${tracks.slice(0, 5).join('\n')}\n\n${nextSongs}`)
         .setTimestamp()
         .setFooter({ text: '❤️', iconURL: interaction.member.avatarURL({ dynamic: true })})
 

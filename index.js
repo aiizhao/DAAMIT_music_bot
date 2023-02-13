@@ -67,21 +67,21 @@ player.on("connectionError", (queue, error) => {
 
 // Event listeners
 player.on("trackStart", (queue, track) => {
-    queue.metadata.channel.send(`🎶 | Started playing: **${track.title}** in **${queue.connection.channel.name}**!`);
+    queue.metadata.channel.send(`🎶  Started playing: **${track.title}** in **${queue.connection.channel.name}**!`);
 });
 
 player.on("trackAdd", (queue, track) => {
-    queue.metadata.channel.send(`🎶 | Added to queue: **${track.title}**!`);
+    queue.metadata.channel.send(`🎶  Added to queue: **${track.title}**!`);
 });
 
 player.on("botDisconnect", (queue) => {
-    queue.metadata.channel.send("❗ | Disconnected from the voice channel. Queue cleared!");
+    queue.metadata.channel.send("❗  Disconnected from the voice channel. Queue cleared!");
 });
 
 player.on("channelEmpty", (queue) => {
-    queue.metadata.channel.send("❗ | Nobody is in the voice channel. Leaving...");
+    queue.metadata.channel.send("❗  Nobody is in the voice channel. Leaving...");
 });
 
 player.on("queueEnd", (queue) => {
-    queue.metadata.channel.send("🍵 | Queue finished!");
+    queue.metadata.channel.send("🍵  Queue finished!");
 });
