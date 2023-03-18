@@ -4,6 +4,8 @@ const { Client, Collection, Events, GatewayIntentBits, GuildMember } = require('
 const { Player } = require("discord-player");
 const { token } = require('./config.json');
 
+const { VoiceConnectionStatus } = require('@discordjs/voice'); //fix vc disconnect
+
 global.client = new Client({intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMembers,
@@ -84,4 +86,13 @@ player.on("channelEmpty", (queue) => {
 
 player.on("queueEnd", (queue) => {
     queue.metadata.channel.send("🍵  Queue finished!");
+});
+
+// v5 disconnect fix
+player.on('connectionCreate', (queue) => {
+    queue.connection.voiceConnection.on('stateChange', (oldState, newState) => {
+        if (oldState.status === VoiceConnectionStatus.Ready && newState.status === VoiceConnectionStatus.Connecting) {
+            queue.connection.voiceConnection.configureNetworking();
+        }
+    })
 });
