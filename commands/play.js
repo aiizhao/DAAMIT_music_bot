@@ -48,6 +48,10 @@ module.exports = {
         await interaction.followUp({ content: `⏱  Loading ${searchResult.playlist ? "playlist" : "track"}...` });
 
         searchResult.playlist ? queue.addTracks(searchResult.tracks) : queue.addTrack(searchResult.tracks[0]);
+
+        console.log(queue.tracks.map((track) => track.title));
+        console.log(queue.previousTracks.map((track) => track.title));
+        
         if (!queue.playing) {
             await queue.play();
         }
